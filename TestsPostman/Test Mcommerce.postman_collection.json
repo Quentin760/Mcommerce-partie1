@@ -1,0 +1,39 @@
+{
+	"info": {
+		"_postman_id": "ec5186cc-c691-443b-86c9-2674a274cc44",
+		"name": "Test Mcommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:9090/TrieProduits",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:9090/AdminProduits",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	]
+}
