@@ -67,19 +67,18 @@ public class ProductController {
 			throw new ProduitIntrouvableException(
 					"Le produit avec l'id " + id + " est INTROUVABLE. Écran Bleu si je pouvais.");
 
-		if (produit.getPrix() == 0)
-			throw new ProduitGratuitException("Le produit avec l'id " + id + "est Gratuit.");
 		return produit;
 	}
 
 	// ajouter un produit
+
 	@PostMapping(value = "/Produits")
 	public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product) {
 
 		Product productAdded = productDao.save(product);
 
-		if (productAdded == null)
-			return ResponseEntity.noContent().build();
+		if (productAdded.getPrix() == 0)
+			throw new ProduitGratuitException("Le produit est Gratuit.");
 
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(productAdded.getId()).toUri();
@@ -107,7 +106,7 @@ public class ProductController {
 	}
 
 	@GetMapping(value = "/AdminProduits")
-	public List<Product> calculerMargeProduit() {
+	public String calculerMargeProduit() {
 		Iterable<Product> listMarge = productDao.findAll();
 		ArrayList<Product> realList = new ArrayList<Product>();
 		for (Product product : listMarge) {
@@ -116,11 +115,10 @@ public class ProductController {
 			int prix = product.getPrix();
 			int prixAchat = product.getPrixAchat();
 			realList.add(product);
-			product.toString("Product [id=" + id + ", nom=" + nom + ", prix=" + prix + "]: " + (prix - prixAchat));
+			product.toString("Product {id=" + id + ", nom=" + nom + ", prix=" + prix + "}: " + (prix - prixAchat));
 
-			System.out.println("for each");
 		}
-		return realList;
+		return realList.toString();
 	}
 
 	@GetMapping(value = "/TrieProduits")

@@ -70,7 +70,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", nom=" + nom + ", prix=" + prix + ", prixAchat=" + prixAchat + "]";
+		return "Product [id=" + id + ", nom=" + nom + ", prix=" + prix + "]: " + (prix - prixAchat);
 	}
 
 	public void toString(String string) {
