@@ -73,17 +73,18 @@ public class ProductController {
 	// ajouter un produit
 
 	@PostMapping(value = "/Produits")
-	public ResponseEntity<Void> ajouterProduit(@Valid @RequestBody Product product) {
+	public ResponseEntity<Product> ajouterProduit(@Valid @RequestBody Product product) {
 
-		Product productAdded = productDao.save(product);
-
-		if (productAdded.getPrix() == 0)
+		if (product.getPrix() == 0) {
 			throw new ProduitGratuitException("Le produit est Gratuit.");
+		} else {
+			Product productAdded = productDao.save(product);
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(productAdded.getId()).toUri();
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+					.buildAndExpand(productAdded.getId()).toUri();
 
-		return ResponseEntity.created(location).build();
+			return ResponseEntity.created(location).build();
+		}
 	}
 
 	@DeleteMapping(value = "/Produits/{id}")
